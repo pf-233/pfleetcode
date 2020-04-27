@@ -14,25 +14,67 @@ public class TwoListAdd {
 
     public static void main(String[] args) {
 //        (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
-        ListNode l1 = new ListNode(7);
-        ListNode l2 = new ListNode(2);
-        ListNode l3 = new ListNode(4);
-        ListNode l4 = new ListNode(3);
-        l1.next=l2;
-        l2.next=l3;
-        l3.next=l4;
+//        ListNode l1 = new ListNode(7);
+//        ListNode l2 = new ListNode(2);
+//        ListNode l3 = new ListNode(4);
+//        ListNode l4 = new ListNode(3);
+//        l1.next=l2;
+//        l2.next=l3;
+//        l3.next=l4;
+//
+//        ListNode l21 = new ListNode(5);
+//        ListNode l22 = new ListNode(6);
+//        ListNode l23 = new ListNode(4);
+//        l21.next=l22;
+//        l22.next=l23;
+//
+//        TwoListAdd twoListAdd = new TwoListAdd();
+//        ListNode temp = twoListAdd.addTwoNumbers(l1,l21);
+//        System.out.println(temp);
 
-        ListNode l21 = new ListNode(5);
-        ListNode l22 = new ListNode(6);
-        ListNode l23 = new ListNode(4);
-        l21.next=l22;
-        l22.next=l23;
-
-        TwoListAdd twoListAdd = new TwoListAdd();
-        ListNode temp = twoListAdd.addTwoNumbers(l1,l21);
-        System.out.println(temp);
+//        System.out.println(numSquares(12));
+//        System.out.println(numSquares(13));
+        System.out.println(integerBreak(10));
 
     }
+    public static int integerBreak(int n) {
+        if(n<2){
+            return 0;
+        }
+        int[] dp= new int[n+1];
+        dp[1]=1;
+        for(int i=2; i<=n;i++){
+            for(int j=1;2*j<=i;j++){
+                int tempJ = Math.max(j, dp[j]);
+                int tempK = Math.max(i-j, dp[i-j]);
+                dp[i]= Math.max(dp[i], tempJ*tempK);
+            }
+        }
+        return dp[n];
+    }
+
+    public static int numSquares(int n) {
+        double s = Math.sqrt(n);
+        int max = (int) s;
+        int[] arr = new int[max];
+        for(int i=1;i<=max;i++){
+            arr[i-1]=i*i;
+        }
+
+        int[] dp = new int[n+1];
+        dp[0]=0;
+        for(int i=1;i<=n;i++){
+            int k= 0;
+            int min = i;
+            while(k< max && arr[k]<=i){
+                min=Math.min(dp[i-arr[k++]]+1, min);
+            }
+            dp[i]=min;
+        }
+        return dp[n];
+    }
+
+
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         LinkedList<ListNode> list1 = new LinkedList();
