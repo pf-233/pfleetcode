@@ -1,6 +1,7 @@
 package com.pf.leetcode.sort;
 
 import java.io.InputStream;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -10,6 +11,8 @@ import java.util.Scanner;
  * @date 2020-03-31 09:43
  **/
 public class QuickSort {
+    static Random random = new Random();
+
     public static void main(String[] args) {
 //        int[] nums1 = new int[]{5, 2, 3, 1};
 //        sortArray(nums1);
@@ -51,43 +54,31 @@ public class QuickSort {
     }
 
     public static int[] sortArray(int[] nums) {
-        sort(nums, 0, nums.length - 1);
+        qsort(nums, 0, nums.length - 1);
         return nums;
     }
 
-
-    public static void sort(int[] nums, int start, int end) {
-        if (start >= end) {
+    static void qsort(int[] copy, int start, int end){
+        if(start >= end){
             return;
         }
-        int pos = part(nums, start, end);
-        sort(nums, start, pos - 1);
-        sort(nums, pos + 1, end);
+        int split = part(copy, start, end);
+        qsort(copy, start, split - 1);
+        qsort(copy, split + 1, end);
     }
 
-    public static int part(int[] nums, int start, int end) {
-        if (start >= end) {
-            return start;
-        }
-        int postInt = nums[end];
-        int endNow = end - 1;
-        while (start < endNow) {
-            while (start <= endNow && nums[start] <= postInt) {
-                start++;
-            }
-            while (endNow >= start && nums[endNow] > postInt) {
-                endNow--;
-            }
-            if (start < endNow) {
-                swap(nums, start, endNow);
+    static int part(int[] copy, int start, int end){
+        int ind = random.nextInt(end - start + 1)  + start;
+        swap(copy, ind, end);
+        int left = start - 1;
+        for(int i = start; i < end; i++){
+            if (copy[i] < copy[end]){
+                swap(copy, i, ++left);
             }
         }
-        if (nums[start] > postInt){
-            swap(nums, start, end);
-        }
-        return start;
+        swap(copy, end, ++left);
+        return left;
     }
-
     public static void swap(int[] nums, int x, int y) {
         int temp = nums[x];
         nums[x] = nums[y];
