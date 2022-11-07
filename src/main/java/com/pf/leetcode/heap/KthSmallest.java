@@ -84,6 +84,7 @@ public class KthSmallest {
         }
     }
 
+    
     private void heapify(Node[] heapArr){
         int len = heapArr.length;
         this.top = len;

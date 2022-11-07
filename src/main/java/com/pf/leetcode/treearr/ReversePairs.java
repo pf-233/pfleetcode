@@ -6,9 +6,31 @@ public class ReversePairs {
     public static void main(String[] args) {
         ReversePairs reversePairs = new ReversePairs();
 
-
+        System.out.println(reversePairs.isPalindrome(121));
     }
 
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        int res = 0;
+        int len = 0;
+        int tmp = x;
+        while (tmp > 0) {
+            len++;
+            tmp /= 10;
+        }
+        tmp = (int)Math.pow(10, len / 2);
+        for (int i = 0; i < len / 2; i++) {
+            res += (x % 10) * tmp;
+            tmp /= 10;
+            x /= 10;
+        }
+        if (len % 2 == 1) {
+            res = x % 10;
+        }
+        return res == x;
+    }
     public int reversePairs(int[] nums) {
         int len = nums.length;
         int[] cop = Arrays.copyOf(nums, len);

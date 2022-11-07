@@ -10,7 +10,6 @@ public class Round669 {
     static AtomicMarkableReference atomicMarkableReference;
     public static void main(String[] args) {
         atomicMarkableReference.attemptMark(Round669.class, true);
-        AbstractQueuedSynchronizer
         new Round669().combinationSum2(new int[]{10,1,2,7,6,1,5}, 8);
     }
 

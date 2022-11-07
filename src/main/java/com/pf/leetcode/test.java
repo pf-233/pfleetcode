@@ -1,5 +1,8 @@
 package com.pf.leetcode;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -9,7 +12,15 @@ import java.util.Stack;
  **/
 public class test {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bw =  new BufferedWriter(new OutputStreamWriter(System.out));
+        char aa = (char) 1;
+        char aaa = 1;
+        bw.write(1);
+        bw.write("asdga");
+//        bw.flush();
+        bw.close();
+
 //        int[][] grid = new int[][]{
 //                {2,4,3},
 //                {6,5,2}
