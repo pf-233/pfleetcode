@@ -116,7 +116,7 @@ public class KthSmallest {
     static class Node{
         int val;
         /**
-         * 下一个和当前差多少
+         * 下一个和当前差 多少
          *没有下一个就Integer.MAX_VALUE
          */
         private int nextDiff;

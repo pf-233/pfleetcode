@@ -5,8 +5,13 @@ import java.util.Arrays;
 public class ReversePairs {
     public static void main(String[] args) {
         ReversePairs reversePairs = new ReversePairs();
+        int[] nums = new int[]{
+                //1,3,2,3,1
+                //2,4,3,5,1
+                2147483647,2147483647,2147483647,2147483647,2147483647,2147483647
+        };
+        System.out.println(reversePairs.reversePairs(nums));
 
-        System.out.println(reversePairs.isPalindrome(121));
     }
 
     public boolean isPalindrome(int x) {
@@ -35,13 +40,23 @@ public class ReversePairs {
         int len = nums.length;
         int[] cop = Arrays.copyOf(nums, len);
         Arrays.sort(cop);
+        //bit 树状数组中存储的是第1大到第n大里的数据已经遍历过的值的个数
+        //比如最大的已经出现了那就给bit[1]++;
         int[] bit = new int[len + 1];
         int res = 0;
-        for (int i = 0; i < len; i++) {
-            int size = midFind(cop, 2 * nums[i]);
-            res += query(bit, i + 1);
+        for (int i = len - 1; i >= 0; i--) {
+            //有多少个数是小于等于2 * nums[i] 的
+            int size = midFind(cop, (long)2 * nums[i]);
+            //有多个数是大于2 * nums[i]的
+            int bigNum = len - size;
+            //查询之前bigNum数中1, bigNum 有几个已经被放进树状数组了
+            res += query(bit, bigNum);
+            //找到该数据的位置把数据放入数组中就是求得 nums[i] 是第几大的数，然后把该位置更新
+            size = midFind(cop, nums[i] - 1);
+            bigNum = len - size;
+            update(bit, bigNum, 1);
         }
-        return 0;
+        return res;
     }
 
     /**
@@ -72,7 +87,10 @@ public class ReversePairs {
      * @param val
      */
     private void update(int[] bit, int x, int val) {
-        while (x <= bit.length) {
+        if (x == 0) {
+            return;
+        }
+        while (x < bit.length) {
             bit[x] += val;
             x += lowbit(x);
         }
