@@ -7,7 +7,7 @@ public class LenLongestFibSubseq {
     public static void main(String[] args) {
         LenLongestFibSubseq lenLongestFibSubseq = new LenLongestFibSubseq();
         int[] arr = new int[] {2,4,5,6,7,8,11,13,14,15,21,22,34};
-        System.out.println(lenLongestFibSubseq.lenLongestFibSubseq(arr))
+        System.out.println(lenLongestFibSubseq.lenLongestFibSubseq(arr));
     }
     public int lenLongestFibSubseq(int[] arr) {
         int len = arr.length;

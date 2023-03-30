@@ -8,6 +8,11 @@ public class ListNode {
         val = x;
     }
 
+    public ListNode(int x, ListNode next) {
+        val = x;
+        this.next = next;
+    }
+
     public static void main(String[] args) {
         int a = -1<<31;
         System.out.println(a<<1);

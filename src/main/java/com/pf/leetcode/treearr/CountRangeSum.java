@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class CountRangeSum {
 
+    
     public static void main(String[] args) {
         CountRangeSum countRangeSum = new CountRangeSum();
         int[] nums = new int[] {
