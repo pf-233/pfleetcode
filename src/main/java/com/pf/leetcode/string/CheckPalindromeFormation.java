@@ -14,7 +14,7 @@ public class CheckPalindromeFormation {
 
         CheckPalindromeFormation cp = new CheckPalindromeFormation();
         String a = "abdef";
-        String b = "fecab";
+        String b = "fecab";  
         a = "abda";
         b = "acmc";
         System.out.println(cp.checkPalindromeFormation(a, b));
