@@ -23,7 +23,6 @@ public class ContestShuang101 {
             List<Integer> list = new LinkedList();
             int count = 0;
             int ind = i;
-            sum = 0L;
             while (vis[ind] == 0) {
                 vis[ind] = 1;
                 list.add(arr[ind]);
