@@ -1,13 +1,17 @@
 package algorithm.template;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class SortTemplate {
 
     public static void main(String[] args) {
         int[] nums = new int[]{465,6435,1231,73,213};
         //selectionSort(nums);
-        quickSort(nums, 0, nums.length - 1);
+        //quickSort(nums, 0, nums.length - 1);
+        //heapSort(nums);
+        countSort(nums);
         Arrays.stream(nums).forEach(e -> System.out.println(e));
     }
 
@@ -153,7 +157,56 @@ public class SortTemplate {
         return left;
     }
 
-    public static void swap(int[] nums, int i, int j) {
+
+    public static void heapSort(int[] nums) {
+        buildHeap(nums);
+        int k = nums.length - 1;
+        while (k > 0) {
+          swap(nums, 0, k);
+          --k;
+          heapify(nums, k, 0);
+        }
+      }
+      
+      // heapify
+      private static void buildHeap(int[] nums) {
+        for (int i = nums.length / 2; i >= 0; --i) {
+          heapify(nums, nums.length - 1, i);
+        }
+      }
+      
+      /*
+       * nums is the array
+       * n is the end index
+       * i is the start heapify index
+       */
+      private static void heapify(int[] nums, int n, int i) {
+        while (true) {
+          int maxPos = i;
+          // 
+          if (i * 2 + 1 <= n && nums[i] < nums[i * 2 + 1]) maxPos = i * 2 + 1;
+          if (i * 2 + 2 <= n && nums[maxPos] < nums[i * 2 + 2]) maxPos = i * 2 + 2;
+          if (maxPos == i) break;
+          swap(nums, i, maxPos);
+          i = maxPos;
+        }
+      }
+
+    public static void countSort(int[] nums) {
+        int min = Arrays.stream(nums).min().orElse(0);
+        int max = Arrays.stream(nums).max().orElse(0);
+        int[] arr = new int[max - min + 1];
+        Arrays.stream(nums).forEach(e -> arr[e - min]++);
+        int top = 0;
+        for (int i = 0; i < arr.length; i++) {
+            while (i < arr.length && arr[i] > 0) {
+                nums[top++] = i + min;
+                i++;
+            }
+        }
+    }
+
+    private static void swap(int[] nums, int i, int j) {
         nums[i] ^= nums[j]; // i1 = i ^ j
         nums[j] ^= nums[i]; // j1 = j ^ i1 = j ^ i ^ j = i
         nums[i] ^= nums[j]; // i2 = i1 ^ j1 = i ^ j ^ i = j

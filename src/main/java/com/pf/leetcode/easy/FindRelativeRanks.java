@@ -1,6 +1,9 @@
 package com.pf.leetcode.easy;
 
+import java.text.Collator;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class FindRelativeRanks {
 
@@ -11,6 +14,7 @@ public class FindRelativeRanks {
         for (int i = 0; i < len; i++) {
             rank[i] = i;
         }
+        
         Arrays.sort(rank, (a, b) -> score[b] - score[a]);
 
         for(int i = 0; i < len; i++) {

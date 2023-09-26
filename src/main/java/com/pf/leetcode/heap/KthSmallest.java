@@ -1,6 +1,7 @@
 package com.pf.leetcode.heap;
 
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
 /**
  * @author pf
@@ -23,6 +24,7 @@ public class KthSmallest {
 //        int k = 5;
 //        System.out.println(kthSmallest.kthSmallest(mat, k));
     }
+
     /**
      * 构建一个堆，每次取出一个然后放入一个 后一个 - 前一个的diff 最小的
      */

@@ -1,10 +1,33 @@
 package jvm;
 
-import java.util.LinkedList;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ctest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         System.out.println(new Ctest().calculate(""));
+        System.out.println(Runtime.getRuntime().availableProcessors());
+
+        String string = "aa";
+        FutureTask future = new FutureTask<Integer>(new Callable() {
+            @Override
+            public Object call() throws Exception {
+                return new Random().nextInt(1000);
+            }
+        });
+        new Thread(future).start();
+        System.out.println(future.get());;
+
+        Thread threa = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(string);
+            }
+        });
+        threa.start();
+        threa.join();
+
     }
 
 

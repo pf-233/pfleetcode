@@ -10,9 +10,43 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Subsets {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println(new Subsets().subsets(new int[]{1,2,3}));
+
+        Thread a = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                test();
+            }
+        });
+
+        
+        Thread b = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                test();
+            }
+        });
+
+        a.start();
+        b.start();  
+        
+        Thread.sleep(10000L);
     }
+
+    public static void test() {
+        synchronized (Subsets.class) {
+            System.out.println("first lock" + Thread.currentThread().getName());
+            synchronized (Subsets.class) {
+                System.out.println("second lock" + Thread.currentThread().getName());
+            }
+        }
+    }
+
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList((int) Math.pow(2, nums.length));
         int[] vis = new int[nums.length];
