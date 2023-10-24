@@ -13,7 +13,6 @@ public class NumRollsToTarget {
         System.out.println(numRollsToTarget.numRollsToTarget(2,6,7));
     }
 
-    int modulo = (int) 1e9 + 7;
     public int numRollsToTarget(int n, int k, int target) {
         long[][] dp = new long[n + 1][target + 1];
         dp[0][0] = 1L;
