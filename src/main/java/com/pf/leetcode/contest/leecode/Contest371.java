@@ -18,6 +18,38 @@ public class Contest371 {
         System.out.println(contest371.minOperations(nums1, nums2));
     }
 
+    public int maximumStrongPairXor(int[] nums) {
+        int ans = 0;
+        Arrays.sort(nums);
+        for(int i = 23; i >= 0; i --) {
+            HashMap<Integer, Integer> map = new HashMap();
+            Queue<Integer> q = new LinkedList();
+            boolean check = false;
+            ans |= (1 << i);
+            for(int num : nums) {
+                q.offer(num);
+                while(!q.isEmpty() && q.peek() * 2 < num) {
+                    int rem = q.poll() & ans;
+                    if(map.get(rem) == 1) {
+                        map.remove(rem);
+                    } else {
+                        map.put(rem, map.get(rem) - 1);
+                    }
+                }
+                num &= ans;
+                if(map.containsKey(num ^ ans)) {
+                    check = true;
+                    break;
+                }
+                map.put(num, map.getOrDefault(num, 0) + 1);
+            }
+            if(!check){
+                ans ^= (1 << i);
+            }
+        }
+        return ans;
+    }
+
     public int minOperations(int[] nums1, int[] nums2) {
         int max1 = Arrays.stream(nums1).max().getAsInt();
         int max2 = Arrays.stream(nums2).max().getAsInt();
