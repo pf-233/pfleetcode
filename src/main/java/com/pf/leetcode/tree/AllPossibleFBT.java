@@ -13,7 +13,7 @@ public class AllPossibleFBT {
 
     public static void main(String[] args) {
         AllPossibleFBT allPossibleFBT = new AllPossibleFBT();
-        System.out.println(allPossibleFBT.allPossibleFBT(1));
+        System.out.println(allPossibleFBT.allPossibleFBT(11));
     }
 
     List<TreeNode>[] memo;
@@ -25,6 +25,64 @@ public class AllPossibleFBT {
     // 如果子树有偶数个节点有就不可能存在返回空列表
     // 1 个父节点， 0个2个孩子节点，一开始是一个根节点。  1+1*2... 第二层中的任意个有2个节点才会有后续 1+1*2+[1,2]*2...+[1,k]*2 必然是奇数
     // 然后两个循环分别构造左子树情况 * 右子树情况 的节点并返回
+//    public List<TreeNode> allPossibleFBT(int n) {
+//        List<TreeNode> ans = new LinkedList();
+//        if (n % 2 == 0) return ans;
+//
+//        if (n == 1) {
+//            ans.add(new TreeNode(0));
+//            return ans;
+//        }
+//        this.n = n;
+//        int len = n * (n + 2) + 5;
+//        memo = new LinkedList[len];
+//
+//        for (int i = 2; i < n; i++) {
+//            if ((i - 1) % 2 == 0) continue;
+//
+//            List<TreeNode> leftTrees = allPossibleFBT(1, i - 1);
+//            List<TreeNode> rightTrees = allPossibleFBT(i + 1, n);
+//            for (TreeNode left : leftTrees) {
+//                for (TreeNode right : rightTrees) {
+//                    TreeNode root = new TreeNode(0);
+//                    root.left = left;
+//                    root.right = right;
+//                    ans.add(root);
+//                }
+//            }
+//        }
+//        return ans;
+//    }
+//
+//    private List<TreeNode> allPossibleFBT(int start, int end) {
+//        int state = start * (this.n + 1) + end;
+//        if (memo[state] != null) {
+//            return memo[state];
+//        }
+//        List<TreeNode> ansList = new LinkedList();
+//        if (start == end) {
+//            ansList.add(new TreeNode(0));
+//            return memo[state] = ansList;
+//        }
+//
+//        for (int i = start + 1; i < end; i++) {
+//            if ((i - start) % 2 == 0) continue;
+//            List<TreeNode> leftTrees = allPossibleFBT(start, i - 1);
+//            List<TreeNode> rightTrees = allPossibleFBT(i + 1, end);
+//            for (TreeNode left : leftTrees) {
+//                for (TreeNode right : rightTrees) {
+//                    TreeNode root = new TreeNode(0);
+//                    root.left = left;
+//                    root.right = right;
+//                    ansList.add(root);
+//                }
+//            }
+//        }
+//        return memo[state] = ansList;
+//    }
+
+
+
     public List<TreeNode> allPossibleFBT(int n) {
         List<TreeNode> ans = new LinkedList();
         if (n % 2 == 0) return ans;
@@ -34,14 +92,13 @@ public class AllPossibleFBT {
             return ans;
         }
         this.n = n;
-        int len = n * (n + 2) + 5;
-        memo = new LinkedList[len];
+        memo = new LinkedList[n + 5];
 
         for (int i = 2; i < n; i++) {
             if ((i - 1) % 2 == 0) continue;
 
-            List<TreeNode> leftTrees = allPossibleFBT(1, i - 1);
-            List<TreeNode> rightTrees = allPossibleFBT(i + 1, n);
+            List<TreeNode> leftTrees = allPossibleFBTs(i - 1);
+            List<TreeNode> rightTrees = allPossibleFBTs(n - i);
             for (TreeNode left : leftTrees) {
                 for (TreeNode right : rightTrees) {
                     TreeNode root = new TreeNode(0);
@@ -54,21 +111,20 @@ public class AllPossibleFBT {
         return ans;
     }
 
-    private List<TreeNode> allPossibleFBT(int start, int end) {
-        int state = start * (this.n + 1) + end;
+    private List<TreeNode> allPossibleFBTs(int state) {
         if (memo[state] != null) {
             return memo[state];
         }
         List<TreeNode> ansList = new LinkedList();
-        if (start == end) {
+        if (state == 1) {
             ansList.add(new TreeNode(0));
             return memo[state] = ansList;
         }
 
-        for (int i = start + 1; i < end; i++) {
-            if ((i - start) % 2 == 0) continue;
-            List<TreeNode> leftTrees = allPossibleFBT(start, i - 1);
-            List<TreeNode> rightTrees = allPossibleFBT(i + 1, end);
+        for (int i = 2; i < state; i++) {
+            if ((i - 1) % 2 == 0) continue;
+            List<TreeNode> leftTrees = allPossibleFBT(i - 1);
+            List<TreeNode> rightTrees = allPossibleFBT(state - i);
             for (TreeNode left : leftTrees) {
                 for (TreeNode right : rightTrees) {
                     TreeNode root = new TreeNode(0);
