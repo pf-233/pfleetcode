@@ -13,12 +13,13 @@ public class InputOutputUtil {
 
     public static void main(String[] args) {
         String s = "[[2,3,6],[8,9,8],[5,9,7],[8,9,1],[2,9,2],[9,10,6],[7,10,10],[6,7,9],[4,9,7],[2,3,1]]";
-
+        int[][] a = get2DimensionArray(s);
+        System.out.println("aa");
     }
 
     public static int[] getArray(String string) {
         string = string.substring(1, string.length() - 1);
-        return Arrays.stream(string.split(",")).mapToInt(Integer::valueOf).toArray();
+        return Arrays.stream(string.split(",")).map(String::trim).mapToInt(Integer::valueOf).toArray();
     }
     public static int[][] get2DimensionArray(String string) {
         String s = string.substring(1, string.length() - 1);

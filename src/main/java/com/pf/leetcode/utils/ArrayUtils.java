@@ -12,16 +12,6 @@ public class ArrayUtils {
         return res;
     }
 
-//    public static int[][] parseArr2(String arr) {
-//        arr = getMaxStr(arr);
-//
-//        int[] res = new int[str.length];
-//        for (int i = 0; i < str.length; i++) {
-//            res[i] = Integer.valueOf(str[i]);
-//        }
-//        return res;
-//    }
-
     private static String getMaxStr(String arr) {
         int start = arr.indexOf('[');
         int end = arr.lastIndexOf(']');
